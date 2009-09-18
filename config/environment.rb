@@ -41,4 +41,5 @@ Rails::Initializer.run do |config|
   
   config.gem "moneta"
   config.gem "haml"
+  config.gem "rufus-tokyo", :lib => "rufus/tokyo"
 end
