@@ -39,7 +39,7 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
   
-  config.gem "moneta"
   config.gem "haml"
   config.gem "rufus-tokyo", :lib => "rufus/tokyo"
+  config.gem "moneta"
 end
