@@ -18,6 +18,6 @@ class Shortening < ActiveRecord::Base
   private
   
   def save_hash
-    MONETA[hash] = url
+    KVStore.instance[hash] = url
   end
 end
