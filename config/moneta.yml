@@ -2,3 +2,6 @@
 development: 
   :port: 45001
   :host: localhost
+production: 
+  :port: 45001
+  :host: localhost
