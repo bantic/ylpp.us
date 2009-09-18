@@ -17,4 +17,6 @@ ActiveRecord::Schema.define(:version => 20090918162001) do
     t.datetime "updated_at"
   end
 
+  add_index "shortenings", ["id"], :name => "index_shortenings_on_id"
+
 end

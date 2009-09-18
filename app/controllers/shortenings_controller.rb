@@ -3,6 +3,10 @@ class ShorteningsController < ApplicationController
     @shortening = Shortening.new
   end
   
+  def index
+    redirect_to :action => "new"
+  end
+  
   def create
     @shortening = Shortening.new(params[:shortening])
     if @shortening.save
@@ -14,6 +18,6 @@ class ShorteningsController < ApplicationController
   end
   
   def show
-    @shortening = Shortening.find(params[:id])
+    @shortening = Shortening.find_by_hash(params[:id])
   end
 end

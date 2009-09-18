@@ -4,6 +4,7 @@ class CreateShortenings < ActiveRecord::Migration
       t.column :url, :string
       t.timestamps
     end
+    add_index :shortenings, :id
   end
 
   def self.down
