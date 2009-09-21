@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(:version => 20090918162001) do
   create_table "shortenings", :force => true do |t|
     t.string   "url"
     t.string   "hash_key"
-    t.boolean  "custom"
+    t.boolean  "custom",     :default => false
     t.integer  "clicks",     :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
