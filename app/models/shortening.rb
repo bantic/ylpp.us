@@ -1,7 +1,7 @@
 class Shortening < ActiveRecord::Base
   validates_presence_of :url
   validates_format_of :url, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix, :message => "doesn't seem right.", :on => :create
-  validates_format_of :custom_hash, :with => /[a-zA-Z0-9-]/, :allow_nil => true, :on => :create, :message => "can only use alphanumeric characters (and -)."
+  validates_format_of :custom_hash, :with => /[a-zA-Z0-9-]/, :allow_blank => true, :on => :create, :message => "can only use alphanumeric characters (and -)."
   
   validate :url_is_not_oroboros
   
@@ -22,7 +22,7 @@ class Shortening < ActiveRecord::Base
   def self.get_hash(length=2,tries=2)
     hash_ar = []
     length.times {hash_ar << HASH_CHARS[rand(HASH_CHARS.length)]}
-    if Shortening.exists?(:hash => hash.join)
+    if Shortening.exists?(:hash_key => hash_ar.join)
       tries == 0 ? get_hash(length + 1) : get_hash(length, tries - 1)
     else
       return hash_ar.join
