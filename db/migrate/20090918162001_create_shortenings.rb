@@ -3,7 +3,7 @@ class CreateShortenings < ActiveRecord::Migration
     create_table :shortenings do |t|
       t.column :url, :string
       t.column :hash_key, :string
-      t.column :custom, :boolean
+      t.column :custom, :boolean, :default => false
       t.column :clicks, :integer, :default => 0
       t.timestamps
     end
