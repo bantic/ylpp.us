@@ -4,7 +4,7 @@ require(File.dirname(__FILE__) + "/../../config/environment") unless defined?(Ra
 class Redirector
   def self.call(env)
     # env.each {|k,v| puts "#{k}: #{v}"}
-    if env["PATH_INFO"] =~ /^\/([\d\w][^\/]*)\/?$/
+    if env["PATH_INFO"] =~ /^\/([a-zA-Z0-9-]*)\/?$/
       if url = MONETA[$1]
         return [301, {"Location" => url}, []]
       end
