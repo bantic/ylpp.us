@@ -13,10 +13,14 @@ ActiveRecord::Schema.define(:version => 20090918162001) do
 
   create_table "shortenings", :force => true do |t|
     t.string   "url"
+    t.string   "hash_key"
+    t.boolean  "custom"
+    t.integer  "clicks",     :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "shortenings", ["hash_key"], :name => "index_shortenings_on_hash_key", :unique => true
   add_index "shortenings", ["id"], :name => "index_shortenings_on_id"
 
 end

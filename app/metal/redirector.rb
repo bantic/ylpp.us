@@ -5,7 +5,7 @@ class Redirector
   def self.call(env)
     # env.each {|k,v| puts "#{k}: #{v}"}
     if env["PATH_INFO"] =~ /^\/([\d\w][^\/]*)\/?$/
-      if url = KVStore.instance[$1]
+      if url = MONETA[$1]
         return [301, {"Location" => url}, []]
       end
     end
