@@ -1,5 +1,13 @@
+- if @shortening.errors
+  = error_messages_for 'shortening'
+ 
 - form_for @shortening do |f|
-  = f.text_field :url
+  = f.text_field :url, :size => 50
+  url
+  %br
+  = f.text_field :custom_hash, :size => 6
+  custom url (optional)
+  %br
   = f.submit "Shorty"
   
   
@@ -9,5 +17,3 @@
 %br
 %br
 %br
-
-= link_to "diy", "http://ylpp.us/ugi6"
