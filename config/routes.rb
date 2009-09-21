@@ -34,6 +34,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "shortenings", :action => "new"
   
   map.resources :shortenings, :as => 's'
+  map.shortening_info "/:id+", :controller => "shortenings", :action => "show"
 
   # See how all your routes lay out with "rake routes"
 

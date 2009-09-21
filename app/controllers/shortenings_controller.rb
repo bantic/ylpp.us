@@ -10,7 +10,7 @@ class ShorteningsController < ApplicationController
   def create
     @shortening = Shortening.new(params[:shortening])
     if @shortening.save
-      redirect_to @shortening
+      redirect_to shortening_info_url(@shortening)
     else
       flash[:error] = "Error"
       render :action => "new"
@@ -18,6 +18,6 @@ class ShorteningsController < ApplicationController
   end
   
   def show
-    @shortening = Shortening.find_by_hash(params[:id])
+    @shortening = Shortening.find_by_hash_key(params[:id])
   end
 end
