@@ -13,6 +13,10 @@ ActiveRecord::Schema.define(:version => 20090922170100) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "shortening_id"
+    t.string   "referer"
+    t.string   "referer_host"
+    t.string   "remote_ip"
+    t.string   "user_agent"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

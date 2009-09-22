@@ -7,9 +7,11 @@ class Redirector
     if env["PATH_INFO"] =~ /^\/([a-zA-Z0-9-]*)\/?$/
       if url = MONETA[$1]
         begin
-          Click.async_send(:track!, $1)
+          Click.async_send(:track!, $1, {"HTTP_REFERER"    => env['HTTP_REFERER'],
+                                         "HTTP_USER_AGENT" => env["HTTP_USER_AGENT"],
+                                         "REMOTE_ADDR"     => env['REMOTE_ADDR']})
         rescue => e
-          Logger.error("Failed to track click for hash_key #{$1}: #{e.messages}")
+          Rails.logger.info("Failed to track click for hash_key #{$1}: #{e.message}")
         end
         return [301, {"Location" => url}, []]
       end

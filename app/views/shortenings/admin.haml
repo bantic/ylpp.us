@@ -1,5 +1,9 @@
+total clicks: 
+= Click.count
+
+%br
 - @shortenings.each do |shortening|
-  = shortening.url
+  = link_to shortening.url, shortening_info_url(shortening)
   = shortening.hash_key
   = shortening.clicks
   %br
