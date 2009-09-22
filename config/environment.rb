@@ -42,4 +42,13 @@ Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "rufus-tokyo", :lib => "rufus/tokyo"
   config.gem "moneta"
+  config.gem "beanstalk-client"
+  config.gem "daemons"
+  
+  config.after_initialize do
+    AsyncObserver::Queue.queue = Beanstalk::Pool.new(%w(localhost:11300))
+
+    # This value should change every time you make a release of your app.
+    AsyncObserver::Queue.app_version = "v1"
+  end
 end

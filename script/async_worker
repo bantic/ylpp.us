@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'daemons'
+require File.join(File.dirname(__FILE__), "../lib/daemons_extension.rb")
+
+Daemons.run(File.join(File.dirname(__FILE__),"../vendor/plugins/async_observer/bin/worker"), 
+            :force_kill_wait => 5)
