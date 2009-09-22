@@ -34,8 +34,9 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "shortenings", :action => "new"
   
   map.resources :shortenings, :as => 's'
+  map.admin "/++", :controller => "shortenings", :action => "admin"
   map.shortening_info "/:id+", :controller => "shortenings", :action => "show"
-
+  
   # See how all your routes lay out with "rake routes"
 
   # Install the default routes as the lowest priority.

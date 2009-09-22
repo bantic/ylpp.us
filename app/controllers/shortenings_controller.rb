@@ -7,6 +7,10 @@ class ShorteningsController < ApplicationController
     redirect_to :action => "new"
   end
   
+  def admin
+    @shortenings = Shortening.all
+  end
+  
   def create
     @shortening = Shortening.new(params[:shortening])
     if @shortening.save
