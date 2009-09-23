@@ -1,13 +1,18 @@
 class Shortening < ActiveRecord::Base
+  # associations
+  has_many :clicks, :dependent => :destroy
+  
+  # validations
   validates_presence_of :url
   validates_format_of :url, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix, :message => "doesn't seem right.", :on => :create
   validates_format_of :custom_hash, :with => /[a-zA-Z0-9-]/, :allow_blank => true, :on => :create, :message => "can only use alphanumeric characters (and -)."
-  
   validate :url_is_not_oroboros
   
+  # callbacks
   before_create :assign_hash
   after_create :save_hash_to_kv_store
   
+  # misc
   attr_accessor :custom_hash
   attr_protected :hash_key, :clicks, :custom
 
@@ -50,7 +55,6 @@ class Shortening < ActiveRecord::Base
   end
   
   def save_hash_to_kv_store
-    puts "hash key: #{self.hash_key}. #{self.hash_key.class}. url #{self.url}. #{self.url.class}"
     MONETA[self.hash_key] = self.url
   end
 end

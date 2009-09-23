@@ -9,7 +9,16 @@
 %br
 %br
 
-= @shortening.clicks
+= @shortening.clicks_count
 clicks
+
+%br
+
+- @shortening.clicks.collect{|c| c.referer_host }.uniq.each do |referer_host|
+  = referer_host || "Unknown"
+  = @shortening.clicks.count(:conditions => {:referer_host => referer_host})
+  %br
+
+- @shortening.clicks.collect{|c| c.remote_ip}.uniq.collect{|ip| GeoIP}
 
 = link_to "Again", shortenings_url

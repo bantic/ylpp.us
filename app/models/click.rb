@@ -1,5 +1,5 @@
 class Click < ActiveRecord::Base
-  belongs_to :shortening, :counter_cache => :clicks
+  belongs_to :shortening, :counter_cache => true
   
   before_create :set_referer_host
   
