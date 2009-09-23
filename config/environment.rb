@@ -44,6 +44,7 @@ Rails::Initializer.run do |config|
   config.gem "moneta"
   config.gem "beanstalk-client"
   config.gem "daemons"
+  config.gem "geoip"
   
   config.after_initialize do
     AsyncObserver::Queue.queue = Beanstalk::Pool.new(%w(localhost:11300))

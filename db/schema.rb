@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090923015455) do
+ActiveRecord::Schema.define(:version => 20090923021508) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "shortening_id"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(:version => 20090923015455) do
     t.string   "user_agent"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "country"
+    t.string   "city"
+    t.string   "region"
   end
 
   create_table "shortenings", :force => true do |t|

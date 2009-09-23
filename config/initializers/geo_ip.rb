@@ -1,0 +1,1 @@
+GEO_IP_DB = GeoIP.new(Rails.root.join("db","GeoLiteCity.dat"))
