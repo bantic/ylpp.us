@@ -24,6 +24,10 @@ a {
 	padding-bottom: 1em;
 }
 
+form.new_shortening .error {
+	background-color: #FFCC99;
+}
+
 #results {
 	height: 100px;
 	width: 420px;

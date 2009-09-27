@@ -1,6 +1,6 @@
 #errors
 
-- remote_form_for @shortening do |f|
+- remote_form_for @shortening, :class => "new_shortening" do |f|
   = f.text_field :url, :size => 34
   url
   = f.text_field :custom_hash, :size => 12
