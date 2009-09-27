@@ -37,7 +37,7 @@ class Shortening < ActiveRecord::Base
   def assign_hash
     if self.custom_hash.present?
       if Shortening.exists?(:hash_key => self.custom_hash)
-        errors.add_to_base("someone is already using the custom url '#{self.custom_hash}'. The chances of that happening randomly are about a billion to one. Maybe you're just unlucky.")
+        errors.add(:custom_hash, "someone is already using the custom url '#{self.custom_hash}'")
         return false
       else
         self.hash_key = self.custom_hash

@@ -1,34 +1,26 @@
-= @shortening.url
-= " => "
-= text_field_tag "url", "http://#{DOMAIN_NAME}/#{@shortening.hash_key}", :size => 30, :style => 'text-align: center'
+%div{:style => "width: 400px; margin: 0 auto"}= render :partial => "shortening"
+
+%div{:style => 'margin-top: 90px'}
+  = @shortening.clicks_count
+  clicks
+
+- if @shortening.clicks_count > 0
+
+  %h2 Referers
+  - referers = @shortening.clicks.collect{|c| c.referer_host }
+  - referer_frequencies = referers.inject(Hash.new(0)) {|h,v| h[v] +=1; h}
+  - referers.uniq.sort_by{|v| referer_frequencies[v]}.reverse.each do |referer|
+    = referer || "Unknown"
+    = referer_frequencies[referer]
+    %br
+
+  %h2 Locations
+  - locations = @shortening.clicks.collect{|c| c.location_string }
+  - location_frequencies = locations.inject(Hash.new(0)) {|h,v| h[v] +=1; h}
+  - locations.uniq.sort_by{|v| location_frequencies[v]}.reverse.each do |location|
+    = location == "" ? "Unknown" : location
+    = location_frequencies[location]
+    %br
 
 
-%br
-%br
-%br
-%br
-%br
-
-= @shortening.clicks_count
-clicks
-
-%br
-
-%h2 Referers
-- referers = @shortening.clicks.collect{|c| c.referer_host }
-- referer_frequencies = referers.inject(Hash.new(0)) {|h,v| h[v] +=1; h}
-- referers.uniq.sort_by{|v| referer_frequencies[v]}.reverse.each do |referer|
-  = referer || "Unknown"
-  = referer_frequencies[referer]
-  %br
-
-%h2 Locations
-- locations = @shortening.clicks.collect{|c| c.location_string }
-- location_frequencies = locations.inject(Hash.new(0)) {|h,v| h[v] +=1; h}
-- locations.uniq.sort_by{|v| location_frequencies[v]}.reverse.each do |location|
-  = location == "" ? "Unknown" : location
-  = location_frequencies[location]
-  %br
-
-
-= link_to "Again", shortenings_url
+= link_to "Shorten Another", shortenings_url

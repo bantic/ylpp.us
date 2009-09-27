@@ -1,0 +1,57 @@
+body {
+	background-color: black;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+#container, #footer {
+	width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 1em;
+}
+
+#container {
+	background: url(/images/forsyth.jpg);
+	background-color: white;
+	margin-top: 30px;
+}
+
+#shortening_inner_errors {
+	padding-bottom: 1em;
+}
+
+#results {
+	height: 100px;
+	width: 420px;
+	margin: 100px auto 0 auto;
+	padding: 0;
+	overflow: hidden;
+}
+
+#stats {
+	margin-top: 20px;
+	text-align: right;
+}
+
+#shortening_text {
+	font-size: 28px;
+	font-weight: bold;
+	width: 414px;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+
+#footer {
+	margin-top: 1em;
+	color: gray;
+}
+
+#footer a {
+	color: gray;
+	text-decoration: none;
+}

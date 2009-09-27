@@ -1,0 +1,14 @@
+page.replace_html("results", :text => "")
+page.replace_html("errors", :text => "")
+
+if flash[:error]
+  page.hide "errors"
+  page.replace_html "errors", :partial => "shortening_errors"
+  page.visual_effect :toggle_blind, "errors", :duration => 0.5
+else
+  page.hide "results"
+  page.replace_html "results", :partial => "shortening"
+  page << "$('results').setStyle({width: '0px'}).show().morph('width:420px', {duration: 1.0});"
+  page.visual_effect :appear, "stats", :duration => 0.25, :queue => 'end'
+  page << "Element.observe('shortening_text', 'click', function() {this.activate()});"
+end

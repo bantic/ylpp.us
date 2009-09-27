@@ -1,21 +1,16 @@
-- if @shortening.errors
-  = error_messages_for 'shortening'
- 
-- form_for @shortening do |f|
-  = f.text_field :url, :size => 50
+#errors
+
+- remote_form_for @shortening do |f|
+  = f.text_field :url, :size => 34
   url
-  %br
-  = f.text_field :custom_hash, :size => 6
-  custom url (optional)
-  %br
-  = f.submit "Shorty"
+  = f.text_field :custom_hash, :size => 12
+  custom url (opt.)
+  = f.submit "Shorten"
   
-  
+#results
 
 %br
 %br
 %br
 %br
 %br
-
-= link_to "open-source", "http://ylpp.us/DP"

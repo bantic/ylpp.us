@@ -4,6 +4,11 @@
     %title= yield :title
 
     = javascript_include_tag :defaults
+    = stylesheet_link_tag "application"
 
   %body
-    = yield
+    #container
+      = yield
+      
+    #footer
+      = link_to "open-source", "http://ylpp.us/DP"

@@ -13,11 +13,8 @@ class ShorteningsController < ApplicationController
   
   def create
     @shortening = Shortening.new(params[:shortening])
-    if @shortening.save
-      redirect_to shortening_info_url(@shortening)
-    else
-      flash[:error] = "Error"
-      render :action => "new"
+    if !@shortening.save
+      flash.now[:error] = true
     end
   end
   

@@ -1,0 +1,7 @@
+#shortening_inner_errors
+  - if @shortening.errors.on(:url)
+    That url doesn't seem right.
+  - if @shortening.errors.on(:custom_hash)
+    That custom url is 
+    = link_to "taken.", shortening_info_url(@shortening.custom_hash)
+    (Sorry.)
