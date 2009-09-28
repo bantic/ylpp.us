@@ -4,7 +4,15 @@ class Click < ActiveRecord::Base
   before_create :set_referer_host
   before_create :set_location_from_ip
   
+  def self.bot?(user_agent)
+    return false if user_agent.nil?
+    
+    user_agent =~ /spider|bot|crawler/i
+  end
+  
   def self.track!(hash_key, env)
+    return if bot?(env['HTTP_USER_AGENT'])
+    
     if shortening = Shortening.find_by_hash_key(hash_key)
       self.create(:shortening => shortening,
                   :referer    => env['HTTP_REFERER'],
