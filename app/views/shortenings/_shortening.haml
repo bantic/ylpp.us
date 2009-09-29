@@ -1,4 +1,7 @@
+- unless flash[:created]
+  %div{:style => 'text-align: center'}= @shortening.url
 = text_field_tag "url", "http://#{DOMAIN_NAME}/#{@shortening.hash_key}", :id => "shortening_text"
-%div#stats{:style => "display:none"}
-  = link_to "stats #{image_tag("chart.png")}", shortening_info_url(@shortening)
+%div#stats
+  - if flash[:created]
+    = link_to "stats #{image_tag("chart.png")}", shortening_info_url(@shortening)
   = render :partial => "copy_button"

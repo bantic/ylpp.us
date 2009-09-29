@@ -15,6 +15,8 @@ class ShorteningsController < ApplicationController
     @shortening = Shortening.new(params[:shortening])
     if !@shortening.save
       flash.now[:error] = true
+    else
+      flash.now[:created] = true
     end
   end
   

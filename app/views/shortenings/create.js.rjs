@@ -15,6 +15,7 @@ if flash[:error]
 else
   page.hide "results"
   page.replace_html "results", :partial => "shortening"
+  page.hide "stats"
   page << "$('results').setStyle({width: '0px'}).show().morph('width:420px', {duration: 1.0});"
   page.visual_effect :appear, "stats", :duration => 0.25, :queue => 'end'
   page << "Element.observe('shortening_text', 'click', function() {this.activate()});"
