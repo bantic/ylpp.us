@@ -7,7 +7,7 @@ class Click < ActiveRecord::Base
   def self.bot?(user_agent)
     return false if user_agent.nil?
     
-    user_agent =~ /spider|bot|crawler/i
+    user_agent =~ /spider|bot|crawler|curl|Twingly Recon|ThingFetcher/i
   end
   
   def self.track!(hash_key, env)
