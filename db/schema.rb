@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091001170145) do
+ActiveRecord::Schema.define(:version => 20091001173558) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "shortening_id"
@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(:version => 20091001170145) do
     t.string   "region"
     t.boolean  "bot",           :default => false
   end
+
+  add_index "clicks", ["bot"], :name => "index_clicks_on_bot"
 
   create_table "shortenings", :force => true do |t|
     t.string   "url"
