@@ -1,18 +1,17 @@
 class Click < ActiveRecord::Base
-  belongs_to :shortening, :counter_cache => true
+  belongs_to :shortening
   
   before_create :set_referer_host
   before_create :set_location_from_ip
+  before_create :set_bot_status
   
   def self.bot?(user_agent)
     return false if user_agent.nil?
     
-    user_agent =~ /spider|bot|crawler|curl|Twingly Recon|ThingFetcher|MetaURI|PostRank/i
+    return true if user_agent =~ /spider|bot|crawler|curl|Twingly Recon|ThingFetcher|MetaURI|PostRank/i
   end
   
   def self.track!(hash_key, env)
-    return if bot?(env['HTTP_USER_AGENT'])
-    
     if shortening = Shortening.find_by_hash_key(hash_key)
       self.create(:shortening => shortening,
                   :referer    => env['HTTP_REFERER'],
@@ -29,6 +28,18 @@ class Click < ActiveRecord::Base
     else
       "#{self.city} #{self.country}"
     end
+  end
+  
+  protected
+  
+  def after_create
+    shortening.increment!(:clicks_count) unless bot?
+    shortening.increment!(:all_clicks_count)
+  end
+  
+  def after_destroy
+    shortening.decrement!(:clicks_count) unless bot?
+    shortening.decrement!(:all_clicks_count)
   end
   
   private
@@ -51,4 +62,8 @@ class Click < ActiveRecord::Base
     self.region  = geoip_data[6]
     self.city    = geoip_data[7]
   end
+  
+  def set_bot_status
+    self.bot = self.class.bot?(self.user_agent)
+  end  
 end

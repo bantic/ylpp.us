@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090923021508) do
+ActiveRecord::Schema.define(:version => 20091001170145) do
 
   create_table "clicks", :force => true do |t|
     t.integer  "shortening_id"
@@ -22,15 +22,17 @@ ActiveRecord::Schema.define(:version => 20090923021508) do
     t.string   "country"
     t.string   "city"
     t.string   "region"
+    t.boolean  "bot",           :default => false
   end
 
   create_table "shortenings", :force => true do |t|
     t.string   "url"
     t.string   "hash_key"
-    t.boolean  "custom",       :default => false
-    t.integer  "clicks_count", :default => 0
+    t.boolean  "custom",           :default => false
+    t.integer  "clicks_count",     :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "all_clicks_count", :default => 0
   end
 
   add_index "shortenings", ["hash_key"], :name => "index_shortenings_on_hash_key", :unique => true

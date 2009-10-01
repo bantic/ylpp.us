@@ -1,6 +1,7 @@
 class Shortening < ActiveRecord::Base
   # associations
-  has_many :clicks, :dependent => :destroy
+  has_many :clicks,     :dependent => :destroy, :conditions => {:bot => false}
+  has_many :all_clicks, :dependent => :destroy, :class_name => "Click"
   
   # validations
   validates_presence_of :url
