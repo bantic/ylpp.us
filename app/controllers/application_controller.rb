@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
     hash = hash.is_a?(Shortening) ? hash.hash_key : hash
     hashes = get_hashes_for_user
     hashes.unshift(hash)
-    cookies['hashes'] = hashes.join(",")
+    cookies['hashes'] = {
+       :value => hashes.join(",")
+       :expires => 1.year.from_now,
+       :domain => DOMAIN_NAME
+     }
   end
 end
