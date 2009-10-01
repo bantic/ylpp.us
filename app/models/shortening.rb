@@ -5,18 +5,26 @@ class Shortening < ActiveRecord::Base
   
   # validations
   validates_presence_of :url
-  validates_format_of :url, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix, :message => "doesn't seem right.", :on => :create
-  validates_format_of :custom_hash, :with => /[a-zA-Z0-9-]/, :allow_blank => true, :on => :create, :message => "can only use alphanumeric characters (and -)."
+
+  validates_format_of   :url, :with => /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix,
+                        :message => "doesn't seem right."
+
+  validates_format_of   :custom_hash, :with => /[a-zA-Z0-9-]/,
+                        :allow_blank => true,
+                        :message => "can only use alphanumeric characters (and -)."
+                        
   validate :url_is_not_oroboros
   
   # callbacks
-  before_create :assign_hash
-  after_create :save_hash_to_kv_store
+  before_create  :assign_hash
+  after_create   :save_hash_to_kv_store
   
   # misc
-  attr_accessor :custom_hash
+  attr_accessor  :custom_hash
   attr_protected :hash_key, :clicks, :custom
-
+  
+  # constants
+  RESERVED_HASHES = ["mine", "s"]
   HASH_CHARS = ('a'..'z').to_a + ("A".."Z").to_a + ("0".."9").to_a
   
   def to_param
@@ -28,16 +36,22 @@ class Shortening < ActiveRecord::Base
   def self.get_hash(length=2,tries=2)
     hash_ar = []
     length.times {hash_ar << HASH_CHARS[rand(HASH_CHARS.length)]}
-    if Shortening.exists?(:hash_key => hash_ar.join)
+    if !Shortening.valid_hash?(hash_ar.join)
       tries == 0 ? get_hash(length + 1) : get_hash(length, tries - 1)
     else
       return hash_ar.join
     end
   end
   
+  def self.valid_hash?(hash_key)
+    return false if RESERVED_HASHES.include?(hash_key)
+    return false if Shortening.exists?(:hash_key => hash_key)
+    return true
+  end
+  
   def assign_hash
     if self.custom_hash.present?
-      if Shortening.exists?(:hash_key => self.custom_hash)
+      if !Shortening.valid_hash?(self.custom_hash)
         errors.add(:custom_hash, "someone is already using the custom url '#{self.custom_hash}'")
         return false
       else
@@ -53,6 +67,8 @@ class Shortening < ActiveRecord::Base
     if URI.parse(url).host == DOMAIN_NAME
       errors.add(:url, "can't include #{DOMAIN_NAME}. infinite recursion alert.")
     end
+  rescue URI::InvalidURIError => e
+    nil
   end
   
   def save_hash_to_kv_store
