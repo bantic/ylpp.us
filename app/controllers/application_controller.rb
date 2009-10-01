@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     hashes = get_hashes_for_user
     hashes.unshift(hash)
     cookies['hashes'] = {
-       :value => hashes.join(",")
+       :value => hashes.join(","),
        :expires => 1.year.from_now,
        :domain => DOMAIN_NAME
      }
