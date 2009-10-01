@@ -7,4 +7,15 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  
+  def get_hashes_for_user
+    hashes = (cookies['hashes'] || "").split(",")
+  end
+  
+  def save_hash_for_user(hash)
+    hash = hash.is_a?(Shortening) ? hash.hash_key : hash
+    hashes = get_hashes_for_user
+    hashes.unshift(hash)
+    cookies['hashes'] = hashes.join(",")
+  end
 end

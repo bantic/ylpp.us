@@ -1,0 +1,19 @@
+- if @shortenings.empty?
+  No ylpps yet.
+- else
+  %ul.shortenings.selfclear
+    - @shortenings.each do |shortening|
+      %li.selfclear
+        %span.url
+          = truncate(shortening.url, :length => 70)
+        - link_to shortening_info_url(shortening) do
+          %span.hash_key
+            = shortening.hash_key
+        %span.date
+          = time_ago_in_words(shortening.created_at) + " ago"
+        %span.clicks
+          = pluralize(shortening.clicks_count, "click")
+
+- link_to "/" do
+  %div.create
+    Create a ylpp

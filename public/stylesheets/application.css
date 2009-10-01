@@ -7,6 +7,20 @@ a {
 	color: black;
 }
 
+#mine {
+	position: relative;
+	background-color: #FFFFCC;
+	width: 66px;
+	font-family: Helvetica;
+	right: -550px;
+	top: -34px;
+	text-align: right;
+}
+
+#mine:hover {
+	background-color: #CCC;
+}
+
 #container, #footer {
 	width: 600px;
 	margin-left: auto;
@@ -58,4 +72,84 @@ form.new_shortening .error {
 #footer a {
 	color: gray;
 	text-decoration: none;
+}
+
+div.create {
+	margin: 20px 0 2px 0;
+	padding: 2px;
+	width: 164px;
+	background-color: #DEE;
+	font-weight: bold;
+	font-size: 24px;
+	font-family: Helvetica;
+	text-indent: 12px;
+}
+
+div.create:hover {
+	background-color: #CCC;
+}
+
+ul.shortenings {
+	list-style-type: none;
+	margin: 0;
+	padding: 10px;
+	background-color: #DDD;
+}
+
+ul.shortenings li {
+	margin-bottom: 4px;
+}
+
+ul.shortenings span {
+	background-color: white;
+	display: block;
+	float:left;
+	margin-right: 10px;
+	padding: 3px;
+	overflow: hidden;
+	line-height: 16px;
+	font-size: 14px;
+}
+
+ul.shortenings span.url {
+	width: 240px;
+}
+
+ul.shortenings span.hash_key {
+	width: 60px;
+	font-weight: bold;
+	text-align: center;
+}
+
+ul.shortenings span.hash_key:hover {
+	background-color: #AAA;
+	cursor: pointer;
+}
+
+ul.shortenings span.date {
+	width: 100px;
+	font-size: 11px;
+}
+
+ul.shortenings span.clicks {
+}
+
+.selfclear:after {
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+
+.selfclear {
+display: inline-block; /* IE 7 */
+}
+
+.selfclear {
+display: block;
+}
+
+* html .selfclear {
+height: 1px; /* IE < 7 */
 }
