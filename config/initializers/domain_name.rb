@@ -1,1 +1,1 @@
-DOMAIN_NAME = "ylpp.us"
+DOMAIN_NAME = Rails.env == "development" ? "localhost:3000" : "ylpp.us"
