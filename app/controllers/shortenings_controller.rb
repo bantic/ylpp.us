@@ -16,11 +16,19 @@ class ShorteningsController < ApplicationController
     if !@shortening.save
       flash.now[:error] = true
     else
+      update_shortenings_cookie!(@shortening)
       flash.now[:created] = true
     end
   end
   
   def show
     @shortening = Shortening.find_by_hash_key(params[:id])
+  end
+  
+  private
+  def update_shortenings_cookie!(shortening)
+    shortenings = (cookies['shortenings'] || "").split(",")
+    shortenings.unshift(shortening.hash_key)
+    cookies['shortenings'] = shortenings.join(",")
   end
 end
