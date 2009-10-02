@@ -49,8 +49,9 @@ class Click < ActiveRecord::Base
     return unless referer.present?
     
     self.referer_host = URI.parse(referer).host
+    true
   rescue => e
-    nil
+    true
   end
   
   def set_location_from_ip
@@ -62,9 +63,11 @@ class Click < ActiveRecord::Base
     self.country = geoip_data[4]
     self.region  = geoip_data[6]
     self.city    = geoip_data[7]
+    true
   end
   
   def set_bot_status
     self.bot = self.class.bot?(self.user_agent)
+    true
   end  
 end
