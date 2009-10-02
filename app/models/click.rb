@@ -9,6 +9,7 @@ class Click < ActiveRecord::Base
     return false if user_agent.nil?
     
     return true if user_agent =~ /spider|bot|crawler|curl|Twingly Recon|ThingFetcher|MetaURI|PostRank/i
+    return false
   end
   
   def self.track!(hash_key, env)
